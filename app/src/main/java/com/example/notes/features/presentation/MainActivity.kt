@@ -10,7 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.notes.features.presentation.notes.NotesScreen
+import com.example.notes.features.presentation.update_note.UpdateNoteScreen
+import com.example.notes.features.presentation.utils.Screen
 import com.example.notes.ui.theme.NotesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,27 +31,19 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NotesTheme {
-
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.NotesScreen.route
+                    ) {
+                        composable(route = Screen.NotesScreen.route) {
+                            NotesScreen(navController = navController)
+                        }
+                        composable(route = Screen.UpdateScreen.route) {
+                            UpdateNoteScreen(navController = navController)
+                        }
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NotesTheme {
-        Greeting("Android")
     }
 }
