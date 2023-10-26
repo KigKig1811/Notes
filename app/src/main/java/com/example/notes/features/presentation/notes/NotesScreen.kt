@@ -62,7 +62,7 @@ fun NotesScreen(
     navController: NavController, viewModel: NotesViewModel = hiltViewModel()
 ) {
     val notesState = viewModel.notesState.value
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     Scaffold(
@@ -80,7 +80,7 @@ fun NotesScreen(
             }
         },
         snackbarHost = {
-            SnackbarHost(snackbarHostState)
+            SnackbarHost(snackBarHostState)
         }
     ) {
         Column(
@@ -127,7 +127,7 @@ fun NotesScreen(
                         onDelete = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {
-                                val result = snackbarHostState.showSnackbar(
+                                val result = snackBarHostState.showSnackbar(
                                     message = "Note deleted",
                                     actionLabel = "Undo"
                                 )

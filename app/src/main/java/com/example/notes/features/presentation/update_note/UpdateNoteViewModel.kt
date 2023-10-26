@@ -36,7 +36,7 @@ class UpdateNoteViewModel @Inject constructor(
 
     private var currentNoteId: Int? = null
 
-    init {
+        init {
         savedStateHandle.get<Int>("noteId")?.let { noteId ->
             if (noteId != -1) {
                 viewModelScope.launch {

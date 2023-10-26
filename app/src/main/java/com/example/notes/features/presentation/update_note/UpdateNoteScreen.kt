@@ -2,6 +2,7 @@ package com.example.notes.features.presentation.update_note
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -50,7 +51,7 @@ fun UpdateNoteScreen(
     val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
 
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     val noteBackgroundAnima = remember {
@@ -63,7 +64,7 @@ fun UpdateNoteScreen(
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is UpdateNoteViewModel.UiEvent.ShowSnackBar -> {
-                    snackbarHostState.showSnackbar(message = event.message)
+                    snackBarHostState.showSnackbar(message = event.message)
                 }
 
                 is UpdateNoteViewModel.UiEvent.SaveNote -> {
@@ -82,7 +83,7 @@ fun UpdateNoteScreen(
             )
         }
     }, snackbarHost = {
-        SnackbarHost(snackbarHostState)
+        SnackbarHost(snackBarHostState)
     }, modifier = Modifier
     ) {
         Column(
@@ -113,6 +114,14 @@ fun UpdateNoteScreen(
                         )
                         .clickable {
                             scope.launch {
+                                scope.launch {
+                                    noteBackgroundAnima.animateTo(
+                                        targetValue = Color(colorInt),
+                                        animationSpec = tween(
+                                            durationMillis = 500
+                                        )
+                                    )
+                                }
                                 viewModel.onEvent(UpdateNoteEvent.ChangeColor(color = colorInt))
                             }
                         })
