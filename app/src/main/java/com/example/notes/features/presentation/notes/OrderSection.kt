@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.notes.features.domain.utils.NoteOrder
@@ -68,8 +69,8 @@ fun DefaultRadioButton(
             selected = selected,
             onClick = onSelect,
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colorScheme.background,
-                unselectedColor = MaterialTheme.colorScheme.onBackground
+                selectedColor = Color.Blue,
+                unselectedColor = Color.Black
             )
         )
         Text(
